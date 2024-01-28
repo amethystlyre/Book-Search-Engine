@@ -22,10 +22,12 @@ const SavedBooks = () => {
   //const userDataLength = Object.keys(userData).length;
   //const token = Auth.loggedIn() ? Auth.getToken() : null;
   const { loading, data } = useQuery(QUERY_ME);
+  const savedBooks = data?.savedBooks || [];
 
-  console.log(data.savedBooks);
+  console.log("data:",data);
+  const username = Auth.getProfile().data.username
 
-
+  console.log("username:",username);
 
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database

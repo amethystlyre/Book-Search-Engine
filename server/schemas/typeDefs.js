@@ -4,26 +4,26 @@ const typeDefs =`
         username: String!
         email: String!
         password: String!
-        savedBooks: [Book]!
+        savedBooks: [Book]
     }
 
     type Book{
         _id:ID
-        authors: [String]!
-        description:String!
-        bookId:String!
-        title:String!
-        image:String!
-        link:String!
+        authors: [String]
+        description:String
+        bookId:String
+        title:String
+        image:String
+
     }
      
     input BookInput{
-        title:String!
-        authors: [String]!
-        description:String!
-        bookId:String!        
-        image:String!
-        link:String!
+        title:String
+        authors: [String]
+        description:String
+        bookId:String        
+        image:String
+
     }
 
     

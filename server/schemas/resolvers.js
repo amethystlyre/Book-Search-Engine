@@ -41,6 +41,7 @@ const resolvers = {
       return { token, user };
     },    
     saveBook: async (parent, args, context) => {
+
       if (context.user) {
         // const thought = await Thought.create({
         //   thoughtText,
@@ -49,10 +50,11 @@ const resolvers = {
 
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedBooks: args } },
+          { $addToSet: { savedBooks: {...args.book} } },
           { new: true}
-        );
-
+        ).populate("savedBooks");
+        console.log("args:",args);
+        console.log("context.user._id:",context.user._id);
         return {user};
       }
       throw AuthenticationError;

@@ -14,7 +14,7 @@ const typeDefs =`
         bookId:String
         title:String
         image:String
-
+        link:String
     }
      
     input BookInput{
@@ -23,6 +23,7 @@ const typeDefs =`
         description:String
         bookId:String        
         image:String
+        link:String
 
     }
 

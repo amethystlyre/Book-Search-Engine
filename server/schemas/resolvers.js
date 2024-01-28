@@ -48,15 +48,16 @@ const resolvers = {
         //   thoughtAuthor: context.user.username,
         // });
 
-        const user = await User.findOneAndUpdate(
+        return User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { savedBooks: {...args.book} } },
           { new: true}
         ).populate("savedBooks");
-        console.log("args:",args);
-        console.log("context.user._id:",context.user._id);
-        return {user};
+        //console.log("args:",args);
+        //console.log("context.user._id:",context.user._id);
+        
       }
+
       throw AuthenticationError;
       ('You need to be logged in!');
     },
@@ -69,11 +70,11 @@ const resolvers = {
 
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedBooks: bookId } },
+          { $pull: { savedBooks: {bookId : bookId} } },
           { new: true }
         );
 
-        return {user};
+        return user;
       }
       throw AuthenticationError;
     },

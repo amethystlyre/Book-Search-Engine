@@ -32,6 +32,7 @@ console.log("authLink.concat(httpLink)",authLink.concat(httpLink));
 
 const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
+  //link:'/graphql',
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });

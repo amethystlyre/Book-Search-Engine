@@ -1,14 +1,18 @@
 // see SignupForm.js for comments
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
 
-import { loginUser } from '../utils/API';
+//import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
+  //const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+
+  const [login,{error}] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -25,16 +29,17 @@ const LoginForm = () => {
       event.stopPropagation();
     }
 
+    console.log("userFormData:",userFormData);
+
     try {
-      const response = await loginUser(userFormData);
+      const { data } = await login({
+        variables: { ...userFormData },
+      });
+      console.log("error:",error);
+      console.log("data:",data);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      Auth.login(data.login.token);
 
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -49,10 +54,12 @@ const LoginForm = () => {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form noValidate onSubmit={handleFormSubmit}>
+
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
+
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control

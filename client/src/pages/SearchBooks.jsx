@@ -90,9 +90,7 @@ const SearchBooks = () => {
       console.log("saveBook Data:",data);
       console.log("data.saveBook.savedBooks[0].bookId:",data.saveBook.savedBooks);
       const savedBooks = data?.saveBook?.savedBooks || [] ;
-      //savedBooks.map(book=> setSavedBookIds([...savedBookIds,book.bookId]))
-      const newIDs = savedBooks.map(book => book.bookId)
-      setSavedBookIds([...savedBookIds, ...newIDs])
+      savedBooks.map(book=> setSavedBookIds([...savedBookIds,book.bookId]))
       
     } catch (err) {
       console.error(err);

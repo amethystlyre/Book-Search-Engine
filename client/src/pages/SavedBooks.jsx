@@ -27,7 +27,7 @@ const SavedBooks = () => {
   console.log("savedBooks:",savedBooks);
   // console.log("error:", error);
 
-  const [removeBook, {error} ] = useMutation(REMOVE_BOOK);
+  const [removeBook, {loading:mloading , data: mdata, error} ] = useMutation(REMOVE_BOOK);
 
   const username = Auth.getProfile().data.username
 
